@@ -31,6 +31,9 @@ public class QuickSort implements Sortable {
         }
     }
 
+    /**
+     * 挖坑填数+分治
+     */
     public int partition(int[] array, int low, int high) {
         // 取数组第一个数作为比较的键值，两个while循环的顺序不能改变：先右后左
         int key = array[low];
