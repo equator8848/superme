@@ -12,25 +12,27 @@ import com.equator.algorithm.sort.quick.QuickSortBetter;
 
 /**
  *  希尔排序，将数组按照 增量 （步长）划分为子序列，再对子序列进行直接插入排序
+ *  化远为近，减少数据移动次数
  */
 public class ShellSort implements Sortable {
     @Override
     public void sort(int[] array) {
-        int increment = array.length, len = array.length, i, j, temp;
+        int gap = array.length, len = array.length, i, j, temp;
         do {
             // 计算增量，增量最后必须为1，进行全盘扫描
-            increment = increment / 3 + 1;
-            for (i = increment; i < len; i++) {
-                if (array[i] < array[i - increment]) {
+            gap = gap / 3 + 1;
+            for (i = gap; i < len; i++) {
+                // 从第gap个元素，逐个对其所在组进行直接插入排序操作
+                if (array[i] < array[i - gap]) {
                     temp = array[i];
-                    for (j = i - increment; j >= 0 && array[j] > temp; j -= increment) {
+                    for (j = i - gap; j >= 0 && array[j] > temp; j -= gap) {
                         // 数据后移
-                        array[j + increment] = array[j];
+                        array[j + gap] = array[j];
                     }
-                    array[j + increment] = temp;
+                    array[j + gap] = temp;
                 }
             }
-        } while (increment > 1);
+        } while (gap > 1);
     }
 
     public static void main(String[] args) {
